@@ -1,15 +1,29 @@
-import { useState } from 'react';
-import { useForm, useFieldArray, Controller } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { MessageSquareText, Plus, Trash2, Sparkles, RotateCcw, ChevronDown, ChevronUp } from 'lucide-react';
-import { questionsSchema, type QuestionsFormData } from '@/validations/schemas';
-import { useAnswerQuestions } from '@/hooks/useJobHooks';
-import { Textarea } from '@/components/ui/Textarea';
-import { FileUpload } from '@/components/ui/FileUpload';
-import { Spinner } from '@/components/ui/Spinner';
-import type { QuestionsResult } from '@/types';
+import { useState } from "react";
+import { useForm, useFieldArray, Controller } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import {
+  MessageSquareText,
+  Plus,
+  Trash2,
+  Sparkles,
+  RotateCcw,
+  ChevronDown,
+  ChevronUp,
+} from "lucide-react";
+import { questionsSchema, type QuestionsFormData } from "@/validations/schemas";
+import { useAnswerQuestions } from "@/hooks/useJobHooks";
+import { Textarea } from "@/components/ui/Textarea";
+import { FileUpload } from "@/components/ui/FileUpload";
+import { Spinner } from "@/components/ui/Spinner";
+import type { QuestionsResult } from "@/types";
 
-const AnswerCard = ({ question, answer }: { question: string; answer: string }) => {
+const AnswerCard = ({
+  question,
+  answer,
+}: {
+  question: string;
+  answer: string;
+}) => {
   const [open, setOpen] = useState(true);
 
   return (
@@ -19,7 +33,9 @@ const AnswerCard = ({ question, answer }: { question: string; answer: string }) 
         onClick={() => setOpen((v) => !v)}
         className="w-full flex items-start justify-between gap-4 text-left"
       >
-        <p className="text-sm font-display font-600 text-white leading-snug">{question}</p>
+        <p className="text-sm font-display font-600 text-white leading-snug">
+          {question}
+        </p>
         {open ? (
           <ChevronUp size={16} className="text-ink-400 shrink-0 mt-0.5" />
         ) : (
@@ -51,14 +67,14 @@ export const QuestionsPage = () => {
     formState: { errors },
   } = useForm<QuestionsFormData>({
     resolver: yupResolver(questionsSchema),
-    defaultValues: { questions: [''] },
+    defaultValues: { questions: [""] },
   });
 
   const { fields, append, remove } = useFieldArray({
     // react-hook-form useFieldArray needs an object array, so we wrap strings
     control,
     // @ts-expect-error – yup schema uses string[], RHF field array needs object[]
-    name: 'questions',
+    name: "questions",
   });
 
   const onSubmit = (data: QuestionsFormData) => {
@@ -69,7 +85,7 @@ export const QuestionsPage = () => {
   };
 
   const handleReset = () => {
-    reset({ questions: [''] });
+    reset({ questions: [""] });
     setResult(null);
   };
 
@@ -79,11 +95,15 @@ export const QuestionsPage = () => {
   return (
     <div className="space-y-8 animate-fade-up max-w-3xl">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      {/* <div className="flex items-center justify-between"> */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
-          <h1 className="font-display font-700 text-3xl text-white">Answer Questions</h1>
+          <h1 className="font-display font-700 text-2xl sm:text-3xl text-white">
+            Answer Questions
+          </h1>
           <p className="text-ink-400 text-sm mt-1 font-body">
-            Paste the application questions from a job form and get tailored, polished answers.
+            Paste the application questions from a job form and get tailored,
+            polished answers.
           </p>
         </div>
         {result && (
@@ -95,12 +115,18 @@ export const QuestionsPage = () => {
 
       {/* Form */}
       {!result && (
-        <form onSubmit={handleSubmit(onSubmit)} noValidate className="card space-y-6">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          noValidate
+          className="card space-y-6"
+        >
           {/* Dynamic question list */}
           <div className="space-y-3">
             <div className="flex items-center justify-between">
               <label className="input-label mb-0">Application Questions</label>
-              <span className="text-xs text-ink-500 font-mono">{fields.length} question{fields.length !== 1 ? 's' : ''}</span>
+              <span className="text-xs text-ink-500 font-mono">
+                {fields.length} question{fields.length !== 1 ? "s" : ""}
+              </span>
             </div>
 
             {fields.map((field, index) => (
@@ -126,13 +152,13 @@ export const QuestionsPage = () => {
               </div>
             ))}
 
-            {typeof errors.questions?.message === 'string' && (
+            {typeof errors.questions?.message === "string" && (
               <p className="error-text">{errors.questions.message}</p>
             )}
 
             <button
               type="button"
-              onClick={() => append('' as unknown as { id: string })}
+              onClick={() => append("" as unknown as { id: string })}
               className="btn-ghost text-volt-400 hover:text-volt-300 hover:bg-volt-400/5 text-sm"
             >
               <Plus size={15} /> Add another question
@@ -155,11 +181,19 @@ export const QuestionsPage = () => {
             )}
           />
 
-          <button type="submit" disabled={isPending} className="btn-primary w-full py-3">
+          <button
+            type="submit"
+            disabled={isPending}
+            className="btn-primary w-full py-3"
+          >
             {isPending ? (
-              <><Spinner size={16} /> Generating answers…</>
+              <>
+                <Spinner size={16} /> Generating answers…
+              </>
             ) : (
-              <><Sparkles size={16} /> Generate Answers</>
+              <>
+                <Sparkles size={16} /> Generate Answers
+              </>
             )}
           </button>
         </form>
@@ -171,7 +205,8 @@ export const QuestionsPage = () => {
           <div className="flex items-center gap-2 mb-2">
             <MessageSquareText size={16} className="text-volt-400" />
             <p className="text-sm font-display font-600 text-white">
-              {result.questions_and_answers.length} answer{result.questions_and_answers.length !== 1 ? 's' : ''} generated
+              {result.questions_and_answers.length} answer
+              {result.questions_and_answers.length !== 1 ? "s" : ""} generated
             </p>
           </div>
 

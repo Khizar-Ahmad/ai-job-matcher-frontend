@@ -3,7 +3,9 @@
 @tailwind utilities;
 
 @layer base {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     box-sizing: border-box;
   }
 
@@ -16,7 +18,12 @@
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke='rgb(42 42 80 / 0.3)'%3e%3cpath d='M0 .5H31.5V32'/%3e%3c/svg%3e");
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-display;
   }
 
@@ -40,7 +47,7 @@
 }
 
 @layer components {
-  .btn-primary {
+  /* .btn-primary {
     @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg
            bg-volt-400 text-ink-950 font-display font-700 text-sm
            hover:bg-volt-300 active:scale-95
@@ -54,7 +61,7 @@
            hover:border-ink-400 hover:text-white active:scale-95
            transition-all duration-150 cursor-pointer
            disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100;
-  }
+  } */
 
   .btn-ghost {
     @apply inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg
@@ -63,8 +70,30 @@
            transition-all duration-150 cursor-pointer;
   }
 
-  .card {
+  /* .card {
     @apply bg-surface-card border border-surface-border rounded-xl p-6;
+  } */
+
+  /* 1. Update .card to have tighter padding on small screens */
+  .card {
+    @apply bg-surface-card border border-surface-border rounded-xl p-4 sm:p-6;
+  }
+
+  /* 2. Update .btn-primary and .btn-secondary — slightly smaller px on tiny screens */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 rounded-lg
+         bg-volt-400 text-ink-950 font-display font-700 text-sm
+         hover:bg-volt-300 active:scale-95
+         transition-all duration-150 cursor-pointer
+         disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 rounded-lg
+         bg-surface-elevated border border-surface-border text-ink-100 font-display font-600 text-sm
+         hover:border-ink-400 hover:text-white active:scale-95
+         transition-all duration-150 cursor-pointer
+         disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100;
   }
 
   .input-field {
@@ -94,9 +123,15 @@
 }
 
 @layer utilities {
-  .font-700 { font-weight: 700; }
-  .font-600 { font-weight: 600; }
-  .font-500 { font-weight: 500; }
+  .font-700 {
+    font-weight: 700;
+  }
+  .font-600 {
+    font-weight: 600;
+  }
+  .font-500 {
+    font-weight: 500;
+  }
   .text-gradient {
     @apply bg-gradient-to-r from-volt-400 to-volt-300 bg-clip-text text-transparent;
   }

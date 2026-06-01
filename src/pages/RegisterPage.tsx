@@ -32,12 +32,14 @@ export const RegisterPage = () => {
   const onSubmit = (data: RegisterFormData) => submit(data);
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 py-16">
+    // <div className="min-h-screen flex items-center justify-center px-4 py-16">
+    <div className="min-h-screen flex items-center justify-center px-4 py-8 sm:py-16">
       <div className="fixed top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-volt-400/4 blur-3xl pointer-events-none" />
 
       <div className="relative z-10 w-full max-w-lg animate-fade-up">
         {/* Logo */}
-        <div className="flex flex-col items-center mb-8">
+        {/* <div className="flex flex-col items-center mb-8"> */}
+        <div className="flex flex-col items-center mb-5 sm:mb-8">
           <div className="w-11 h-11 rounded-xl bg-volt-400 flex items-center justify-center mb-4">
             <Zap size={20} className="text-ink-950" />
           </div>
@@ -69,7 +71,7 @@ export const RegisterPage = () => {
                 <Input
                   label="Password"
                   type="password"
-                  placeholder="Min. 8 chars, 1 uppercase, 1 number"
+                  placeholder="Min. 8 characters..."
                   error={errors.password?.message}
                   {...register('password')}
                 />
