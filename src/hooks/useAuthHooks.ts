@@ -43,11 +43,11 @@ export const useSubmitLogin = () => {
   const mutation = useLogin();
 
   const submit = (payload: LoginPayload) => {
-    const form = new FormData();
+    // const form = new FormData();
     // FastAPI JSON body – send as JSON
     mutation.mutate({
       endPoint: ENDPOINTS.AUTH.LOGIN,
-      data: payload,
+      data: payload as any,
       isJSONPayload: true,
     });
   };
@@ -61,7 +61,7 @@ export const useSubmitRegister = () => {
   const submit = (payload: RegisterPayload) => {
     mutation.mutate({
       endPoint: ENDPOINTS.AUTH.REGISTER,
-      data: payload,
+      data: payload as any,
       isJSONPayload: true,
     });
   };

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Briefcase, Sparkles, RotateCcw, Copy, Check } from 'lucide-react';
+import {  Sparkles, RotateCcw, Copy, Check } from 'lucide-react';
 import { jobProcessSchema, type JobProcessFormData } from '@/validations/schemas';
 import { useProcessJob } from '@/hooks/useJobHooks';
 import { Input } from '@/components/ui/Input';
