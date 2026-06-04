@@ -28,9 +28,13 @@ axiosInstance.interceptors.response.use(
   (error: AxiosError) => {
     if (error.response?.status === 401) {
       // Clear storage and redirect on unauthorized
-      localStorage.removeItem(STORAGE_KEYS.TOKEN);
+      const isAuthPage = ['/login', '/register'].includes(window.location.pathname);
+      if (!isAuthPage) {
+        localStorage.removeItem(STORAGE_KEYS.TOKEN);
       localStorage.removeItem(STORAGE_KEYS.USER);
-      window.location.href = '/login';
+        window.location.href = '/login';
+      }
+      // window.location.href = '/login';
     }
     return Promise.reject(error);
   }

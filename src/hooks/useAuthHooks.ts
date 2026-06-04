@@ -1,9 +1,9 @@
-import { useNavigate } from 'react-router-dom';
-import toast from 'react-hot-toast';
-import { usePostData } from './useApiData';
-import { useAuth } from '@/context/AuthContext';
-import { ENDPOINTS } from '@/api/endpoints';
-import type { AuthResponse, LoginPayload, RegisterPayload } from '@/types';
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import { usePostData } from "./useApiData";
+import { useAuth } from "@/context/AuthContext";
+import { ENDPOINTS } from "@/api/endpoints";
+import type { AuthResponse, LoginPayload, RegisterPayload } from "@/types";
 
 // ─── Register Hook ────────────────────────────────────────────────────────────
 
@@ -14,10 +14,10 @@ export const useRegister = () => {
   return usePostData<AuthResponse>(
     (data) => {
       login(data.data);
-      toast.success(data.message || 'Account created!');
-      navigate('/dashboard');
+      toast.success(data.message || "Account created!");
+      navigate("/dashboard");
     },
-    (error) => toast.error(error.message)
+    (error) => toast.error(error.message),
   );
 };
 
@@ -30,10 +30,13 @@ export const useLogin = () => {
   return usePostData<AuthResponse>(
     (data) => {
       login(data.data);
-      toast.success(data.message || 'Welcome back!');
-      navigate('/dashboard');
+      toast.success(data.message || "Welcome back!");
+      navigate("/dashboard");
     },
-    (error) => toast.error(error.message)
+    (error) => {
+      toast.error(error.message || "Something went wrong!");
+      navigate("/login");
+    },
   );
 };
 
